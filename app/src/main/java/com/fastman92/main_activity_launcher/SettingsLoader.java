@@ -2,7 +2,6 @@ package com.fastman92.main_activity_launcher;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -64,8 +63,9 @@ public class SettingsLoader extends Activity {
         void onRequestPermissions();
     }
 
+    // طلب الصلاحية مباشرة بدون إظهار صندوق الرسالة
     private void requestPermissions(final OnRequestPermissions var) {
-        Functions.ShowMessageBox(this, "Permission to access files is needed. Please accept.", dialogInterface -> var.onRequestPermissions());
+        var.onRequestPermissions();
     }
 
     @Override
@@ -175,12 +175,9 @@ public class SettingsLoader extends Activity {
         finish();
     }
 
+    // الانتقال المباشر وتجاوز إظهار صندوق الرسالة قبل فتح التطبيق
     private void OnSettingsLoaded() {
-        if (Settings.showMessageBoxBeforeStartingApplication) {
-            Functions.ShowMessageBox(this, "Message before an application gets started.", dialogInterface -> FinishThisActivity());
-        } else {
-            FinishThisActivity();
-        }
+        FinishThisActivity();
     }
 
     static void SetErrorMessage(String msg) {
