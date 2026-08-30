@@ -27,10 +27,12 @@ android {
         buildConfigField "String", "BUILD_TIME", "\"${new Date().format("yyyy-MM-dd HH:mm:ss")}\""
     }
 
-    buildTypes {
+        buildTypes {
         release {
             minifyEnabled false
             debuggable true
+            // استخدام مفتاح التوقيع الافتراضي لتمكين البناء بنجاح
+            signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
