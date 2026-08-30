@@ -116,7 +116,9 @@ public class Helpers {
 
     public static String getSaveFilePath(Context c) {
         File root = Environment.getExternalStorageDirectory();
-        String path = (File.separator + "Android" + File.separator + "obb" + File.separator);
+        // تغيير obb إلى media
+        String path = (File.separator + "Android" + File.separator + "media" + File.separator);
+
         System.out.println("getSaveFilePath " + root.toString() + path + c.getPackageName());
         return root.toString() + path + c.getPackageName();
     }
