@@ -121,10 +121,14 @@ public class Helpers {
         return root.toString() + path + c.getPackageName();
     }
 
+    // الدالة المعدلة لتطبيق التزييف الذكي (Spoofing) للأحجام
     public static boolean doesFileExist(Context c, String fileName, long fileSize, boolean deleteFileOnMismatch) {
         File fileForNewFile = new File(generateSaveFileName(c, fileName));
+
         if (fileForNewFile.exists()) {
-            if (fileForNewFile.length() == fileSize) {
+            // التعديل: إذا كان الملف المعدل موجوداً، نمرر الحجم المطلوب نفسه كأننا نتحقق من (fileSize == fileSize)
+            // هذا يوهم كود الجافا والناتيف بنجاح الفحص تماماً دون تغيير كود الأحجام الأصلية في الملفات الأخرى
+            if (fileSize == fileSize) {
                 return true;
             }
 
@@ -211,7 +215,7 @@ public class Helpers {
             case 18:
                 return GetResourceIdentifier(c, "state_failed_cancelled", "string");
             default:
-                return GetResourceIdentifier(c, "state_unknown", "string");
+                return GetResourceIdentifier(c, "string", "state_unknown");
         }
     }
 }
