@@ -1,0 +1,48 @@
+name: Find and Unzip All Zip Files (Keep Original Zips)
+
+on:
+  push:
+    branches:
+      - main # أو master حسب اسم الفرع لديك
+
+jobs:
+  unzip-all-job:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write # إعطاء صلاحية الكتابة والرفع للمستودع
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Find and Unzip All Zip Files
+        run: |
+          echo "Starting recursive search for all .zip files..."
+          
+          # البحث عن أي ملف ينتهي بـ .zip في كافة مجلدات المشروع
+          find . -type f -name "*.zip" | while read -r zip_file; do
+            # معرفة المجلد الذي يوجد به ملف الـ zip الحالي
+            dir_path=$(dirname "$zip_file")
+            
+            echo "--------------------------------------------------"
+            echo "Found zip file: $zip_file"
+            echo "Extracting inside folder: $dir_path"
+            
+            # فك الضغط داخل نفس المجلد الحاوي للملف دون مسح الأصل
+            unzip -o "$zip_file" -d "$dir_path"
+          done
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          git add .
+          
+          if git diff --staged --quiet; then
+            echo "No new files unzipped or no changes detected."
+          else
+            git commit -m "Automated: Unzipped all .zip files without deleting originals"
+            git push
+          fi
