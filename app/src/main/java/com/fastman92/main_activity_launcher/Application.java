@@ -1,4 +1,4 @@
-Package com.fastman92.main_activity_launcher;
+package com.fastman92.main_activity_launcher;
 
 import android.util.Log;
 import android.widget.Toast;
