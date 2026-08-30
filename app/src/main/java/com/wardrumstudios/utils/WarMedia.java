@@ -61,8 +61,7 @@ import androidx.core.view.ViewCompat;
 
 
 import com.nvidia.devtech.NvUtil;
-import com.rockstargames.gtasa.BuildConfig;
-import com.rockstargames.gtasa.R;
+import com.rockstargames.gtasa.Config;
 
 
 import java.io.File;
@@ -82,7 +81,7 @@ import java.util.regex.Pattern;
 public class WarMedia extends WarGamepad {
     static final int REQUEST_READ_EXTERNAL_STORAGE = 8001;
     static final int REQUEST_RECORD_AUDIO = 1;
-    public String APPLICATION_ID = BuildConfig.APPLICATION_ID;
+    public String APPLICATION_ID = Config.APPLICATION_ID;
     public boolean AddMovieExtension;
     protected boolean AllowLongPressForExit;
     String DeviceCountry;
@@ -486,21 +485,13 @@ public class WarMedia extends WarGamepad {
     }
 
     public boolean isWiFiAvailable() {
-        if (mWifiManager == null) {
-            mWifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        }
-
-        return mWifiManager != null && mWifiManager.isWifiEnabled();
+        // إرجاع غير متصل دائماً بالواي فاي
+        return false;
     }
 
     public boolean isNetworkAvailable() {
-        NetworkInfo activeNetworkInfo;
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivityManager == null || (activeNetworkInfo = connectivityManager.getActiveNetworkInfo()) == null) {
-            return false;
-        }
-
-        return activeNetworkInfo.isConnected();
+        // إرجاع غير متصل دائماً ببيانات الهاتف
+        return false;
     }
 
     /* access modifiers changed from: package-private */
@@ -683,12 +674,14 @@ public class WarMedia extends WarGamepad {
 
     /* access modifiers changed from: protected */
     protected void NetworkChange() {
-        int curNetwork = isWiFiAvailable() ? 2 : isNetworkAvailable() ? 1 : 0;
+        // إرسال رقم 0 دائماً ليفهم المحرك الداخلي (C++) أن الجهاز أوفلاين تماماً
+        int curNetwork = 0;
         if (curNetwork != lastNetworkAvailable) {
             NativeNotifyNetworkChange(curNetwork);
             lastNetworkAvailable = curNetwork;
         }
     }
+
 
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
@@ -962,26 +955,14 @@ public class WarMedia extends WarGamepad {
     }
 
     public String getLocalIpAddress() {
-        try {
-            Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces();
-            while (en.hasMoreElements()) {
-                Enumeration<InetAddress> enumIpAddr = en.nextElement().getInetAddresses();
-                while (enumIpAddr.hasMoreElements()) {
-                    InetAddress inetAddress = enumIpAddr.nextElement();
-                    if (!inetAddress.isLoopbackAddress()) {
-                        return inetAddress.getHostAddress();
-                    }
-                }
-            }
-        } catch (SocketException ex) {
-            System.out.println("Got SocketException " + ex);
-        }
-        return null;
+        // إرجاع قيمة فارغة مباشرة لتوضيح عدم وجود اتصال شبكة نشط
+        return "";
     }
 
     public String GetLocalIp() {
-        return this.localIp;
+        return "";
     }
+
 
     /* access modifiers changed from: protected */
     @Override // com.wardrumstudios.utils.WarBase
@@ -2250,3 +2231,7 @@ public class WarMedia extends WarGamepad {
         return false;
     }
 }
+
+
+
+
