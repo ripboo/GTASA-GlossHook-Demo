@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:banner="@drawable/leanbacktvlauncher" android:compileSdkVersion="34" android:compileSdkVersionCodename="14" android:installLocation="auto" package="com.rockstargames.gtasa" platformBuildVersionCode="34" platformBuildVersionName="14">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    android:installLocation="auto">
     
     <!-- Permissions -->
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
@@ -11,15 +12,32 @@
     <uses-feature android:glEsVersion="0x30000"/>
     <uses-feature android:name="android.hardware.touchscreen.multitouch" android:required="false"/>
 
-    <application android:allowAudioPlaybackCapture="true" android:debuggable="false" android:extractNativeLibs="true" android:icon="@drawable/ic_launcher" android:isGame="true" android:label="GTA: SA + AML" android:logo="@drawable/adtlogo" android:name="com.fastman92.main_activity_launcher.Application">
-        
-        <!-- Game Services -->
+    <application 
+        android:allowAudioPlaybackCapture="true" 
+        android:icon="@android:drawable/sym_def_app_icon" 
+        android:isGame="true" 
+        android:label="GTA: SA + AML" 
+        android:name="com.fastman92.main_activity_launcher.Application">
         
         <!-- Main Game Activity -->
-        <activity android:configChanges="keyboard|keyboardHidden|navigation|orientation|uiMode|screenSize" android:exported="false" android:label="GTA: SA + AML" android:launchMode="singleTask" android:name="com.rockstargames.gtasa.GTASA" android:resizeableActivity="false" android:screenOrientation="landscape" android:theme="@style/AppNativeBase" android:windowSoftInputMode="adjustPan"/>
+        <activity 
+            android:configChanges="keyboard|keyboardHidden|navigation|orientation|uiMode|screenSize" 
+            android:exported="false" 
+            android:label="GTA: SA + AML" 
+            android:launchMode="singleTask" 
+            android:name="com.rockstargames.gtasa.GTASA" 
+            android:resizeableActivity="false" 
+            android:screenOrientation="landscape" 
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" 
+            android:windowSoftInputMode="adjustPan"/>
         
         <!-- Launcher Activity -->
-        <activity android:exported="true" android:label="GTA: SA + AML" android:launchMode="singleTask" android:name="com.fastman92.main_activity_launcher.MainActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
+        <activity 
+            android:exported="true" 
+            android:label="GTA: SA + AML" 
+            android:launchMode="singleTask" 
+            android:name="com.fastman92.main_activity_launcher.MainActivity" 
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
             <meta-data android:name="ACTIVITY_TO_LAUNCH" android:value="com.rockstargames.gtasa.GTASA"/>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -31,8 +49,11 @@
             </intent-filter>
         </activity>
 
-        <!-- Settings Loader (Fixed Line) -->
-        <activity android:exported="true" android:name="com.fastman92.main_activity_launcher.SettingsLoader" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
+        <!-- Settings Loader -->
+        <activity 
+            android:exported="true" 
+            android:name="com.fastman92.main_activity_launcher.SettingsLoader" 
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="com.rockstargames.gtasa.SETTINGS_LOADER"/>
                 <category android:name="android.intent.category.DEFAULT"/>
@@ -52,5 +73,3 @@
 
     </application>
 </manifest>
-
-
