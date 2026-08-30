@@ -30,6 +30,7 @@ public class GTASA extends WarMedia {
 
          System.loadLibrary("SCAnd");
          System.loadLibrary("GTASA");
+
     }
 
 
