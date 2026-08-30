@@ -18,22 +18,8 @@ android {
 
         multiDexEnabled false
 
-        ndk {
-            // if you want arm32 only, please comment arm64-v8a line
-//            abiFilters.add("armeabi-v7a")
-            abiFilters.add("armeabi-v7a")
-        }
-
         // add compile time to BuildConfig
         buildConfigField "String", "BUILD_TIME", "\"${new Date().format("yyyy-MM-dd HH:mm:ss")}\""
-    }
-
-    ndkVersion  "28.0.13004108" // ndk version
-    externalNativeBuild {
-        cmake {
-            path file('src/main/cpp/CMakeLists.txt')
-            version "3.22.1" // cmake version
-        }
     }
 
     buildTypes {
