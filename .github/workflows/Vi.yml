@@ -22,10 +22,10 @@ jobs:
           distribution: 'temurin'
           
       - name: Change wrapper permissions
-        run: cd android && chmod +x ./gradlew
+        run: cd android && chmod +x gradlew
 
       - name: Build with Gradle
-        run: cd android && ./gradlew build
+        run: cd android && gradlew build
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4
