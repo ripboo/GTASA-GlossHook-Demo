@@ -1,73 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:banner="@drawable/leanbacktvlauncher" android:compileSdkVersion="34" android:compileSdkVersionCodename="14" android:installLocation="auto" package="com.rockstargames.gtasa" platformBuildVersionCode="34" platformBuildVersionName="14">
+    
+    <!-- Permissions -->
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
-    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- Features -->
+    <uses-feature android:glEsVersion="0x30000"/>
+    <uses-feature android:name="android.hardware.touchscreen.multitouch" android:required="false"/>
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="com.android.vending.CHECK_LICENSE" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-
-    <application
-        android:allowBackup="true"
-        android:banner="@drawable/leanbacktvlauncher"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
-        android:isGame="true"
-        android:label="@string/app_name"
-        android:logo="@drawable/adtlogo"
-        android:requestLegacyExternalStorage="true"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.GTA"
-        android:usesCleartextTraffic="true"
-        tools:targetApi="31">
-
-        <activity
-            android:name=".GTASA"
-            android:configChanges="screenSize|uiMode|orientation|keyboardHidden|keyboard"
-            android:exported="true"
-            android:label="GTA: SA"
-            android:launchMode="singleTask"
-            android:resizeableActivity="false"
-            android:screenOrientation="landscape"
-            android:theme="@style/AppThemeGTASA"
-            android:windowSoftInputMode="adjustPan">
-
+    <application android:allowAudioPlaybackCapture="true" android:debuggable="false" android:extractNativeLibs="true" android:icon="@drawable/ic_launcher" android:isGame="true" android:label="GTA: SA + AML" android:logo="@drawable/adtlogo" android:name="com.fastman92.main_activity_launcher.Application">
+        
+        <!-- Game Services -->
+        
+        <!-- Main Game Activity -->
+        <activity android:configChanges="keyboard|keyboardHidden|navigation|orientation|uiMode|screenSize" android:exported="false" android:label="GTA: SA + AML" android:launchMode="singleTask" android:name="com.rockstargames.gtasa.GTASA" android:resizeableActivity="false" android:screenOrientation="landscape" android:theme="@style/AppNativeBase" android:windowSoftInputMode="adjustPan"/>
+        
+        <!-- Launcher Activity -->
+        <activity android:exported="true" android:label="GTA: SA + AML" android:launchMode="singleTask" android:name="com.fastman92.main_activity_launcher.MainActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
+            <meta-data android:name="ACTIVITY_TO_LAUNCH" android:value="com.rockstargames.gtasa.GTASA"/>
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER"/>
             </intent-filter>
-
         </activity>
 
-    </application>
-    <uses-feature android:glEsVersion="0x20000" />
-    <uses-feature
-        android:name="android.hardware.touchscreen"
-        android:required="false" />
-    <uses-feature
-        android:name="android.software.leanback"
-        android:required="false" />
-    <uses-feature
-        android:name="android.hardware.bluetooth"
-        android:required="false" />
-    <uses-feature
-        android:name="android.hardware.microphone"
-        android:required="false" />
+        <!-- Settings Loader (Fixed Line) -->
+        <activity android:exported="true" android:name="com.fastman92.main_activity_launcher.SettingsLoader" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
+            <intent-filter>
+                <action android:name="com.rockstargames.gtasa.SETTINGS_LOADER"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
 
+        <!-- AML Configuration Meta-Data -->
+        <meta-data android:name="APP_NAME" android:value="com.rockstargames.gtasa"/>
+        <meta-data android:name="LAUNCHER_USE_LAUNCHER_SETTINGS_XML" android:value="no"/>
+        <meta-data android:name="LAUNCHER_ORIGINAL_PACKAGE_NAME" android:value="com.rockstargames.gtasa"/>
+        <meta-data android:name="LAUNCHER_USE_ANDROID_UNPROTECTED_DIRECTORY" android:value="yes"/>
+        <meta-data android:name="LAUNCHER_ANDROID_DATA_DIRECTORY" android:value="com.rockstargames.gtasa"/>
+        <meta-data android:name="LAUNCHER_ANDROID_OBB_DIRECTORY" android:value="com.rockstargames.gtasa"/>
+        <meta-data android:name="LAUNCHER_CHECK_FOR_MULTIPLE_DIRS" android:value="no"/>
+        <meta-data android:name="LAUNCHER_ASSETPACKS_USED" android:value="no"/>
+        <meta-data android:name="LAUNCHER_SHOW_MESSAGE_BOX_ON_APPLICATION_STARTUP" android:value="no"/>
+
+    </application>
 </manifest>
+
+
